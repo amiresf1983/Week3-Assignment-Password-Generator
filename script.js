@@ -28,6 +28,14 @@ function generatePassword() {
     "Password Length\n\nType a number from 8 to 128 and press OK.",
     "8"
   );
+
+  while (preferences.passwordLength < 8 || preferences.passwordLength > 128) {
+    alert("you entered an invalid number!");
+    preferences.passwordLength = window.prompt(
+      "Password Length\n\nType a number from 8 to 128 and press OK.",
+      "8"
+    );
+  }
   preferences.randomLowerLetters = window.confirm("Include lowercase letters?");
   preferences.randomUpperLetters = window.confirm("Include uppercase letters?");
   preferences.randomNumbers = window.confirm("Include numbers?");
