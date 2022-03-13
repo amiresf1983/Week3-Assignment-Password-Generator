@@ -1,6 +1,5 @@
-// Assignment Code
 var generateBtn = document.querySelector("#generate");
-// Write password to the #password input
+
 var preferences = {
   passwordLength: 0,
   randomLowerLetters: 0,
@@ -15,15 +14,12 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
-// console.log(generatePassword);
-// Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
+
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
   window.alert("Let's Start generating a Password!");
-  // console.log(generatePassword());
-  //Prompts
+
   preferences.passwordLength = window.prompt(
     "Password Length\n\nType a number from 8 to 128 and press OK.",
     "8"
@@ -44,23 +40,41 @@ function generatePassword() {
   );
 
   var length = preferences.passwordLength;
-  var string = "abcdefghijklmnopqrstuvwxyz"; //to upper
+  var string = "abcdefghijklmnopqrstuvwxyz";
+  var stringup = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var numeric = "0123456789";
   var punctuation = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
   var password = "";
   var character = "";
-  // var crunch = true;
-  while (password.length < length) {
-    var entity1 = Math.ceil(string.length * Math.random() * Math.random());
-    var entity2 = Math.ceil(numeric.length * Math.random() * Math.random());
-    var entity3 = Math.ceil(punctuation.length * Math.random() * Math.random());
-    var hold = string.charAt(entity1);
-    hold = password.length % 2 == 0 ? hold.toUpperCase() : hold;
-    character += hold;
-    character += numeric.charAt(entity2);
-    character += punctuation.charAt(entity3);
-    password = character;
+
+  var validCharacters = "";
+  if (preferences.randomLowerLetters == true) {
+    validCharacters += string;
   }
+
+  if (preferences.randomUpperLetters == true) {
+    validCharacters += stringup;
+  }
+
+  if (preferences.randomNumbers == true) {
+    validCharacters += numeric;
+  }
+
+  if (preferences.randomSpecialCharacters == true) {
+    validCharacters += punctuation;
+  }
+  if (validCharacters == "") {
+    window.alert(" ERROR: at least one type of characters must be selected");
+    return;
+  }
+
+  while (password.length < length) {
+    var randomChar =
+      validCharacters[Math.floor(Math.random() * validCharacters.length)];
+
+    password += randomChar;
+  }
+  console.log(password);
   password = password
     .split("")
     .sort(function () {
